@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Personal Page</title>
+    <link rel="stylesheet" href="main.css"> 
+    <style>
+        body {
+            background-image: url("https://wallpaperaccess.com/full/3520511.png");
+            background-position: center center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: black;
+
+        }
+
+        header {
+            text-align: center;
+            padding: 1rem 0;
+            font-family: 1.5rem;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            font-size: 50px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        main {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        footer {
+            background-color: black;
+            text-align: center;
+            bottom: 0;
+            width: 100%;
+            color: white;
+            margin-top: 50em;
+        }
+
+        p{
+            color: antiquewhite;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Welcome to My Website</h1>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="openInNewTab('index.html')">Resume</a></li>
+                <li><a href="#" onclick="openInNewTab('Fitnessproject.html')">Fitness</a></li>
+                <li><a href="#" onclick="openInNewTab('Html .html')">Cheat Sheet</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <p>Click on the navigation links above to load content dynamically!</p>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Harpreet Singh | All Rights Reserved</p>
+    </footer>
+
+    <script>
+
+        function openInNewTab(page) {
+            window.open(page, '_blank');
+        }
+
+        function loadContent(page) {
+            if (page === 'home') {
+                document.getElementById('main-content').innerHTML = `
+                    <p class="fancy-text">Click on the navigation links above to load content dynamically!</p>
+                `;
+            } else {
+                fetch(page)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.text();
+                    })
+                    .then(data => {
+                        document.getElementById('main-content').innerHTML = data;
+                    })
+                    .catch(error => {
+                        document.getElementById('main-content').innerHTML = '<p>Content failed to load. Please try again later.</p>';
+                        console.error('Error loading content:', error);
+                    });
+            }
+        }
+    </script>
+
+</body>
+</html>
